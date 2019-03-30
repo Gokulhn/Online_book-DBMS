@@ -1,0 +1,29 @@
+package onlineBook;
+
+import java.util.Scanner;
+
+public class ManagerOperations {
+	Scanner ab = new Scanner(System.in);
+
+	public Book addBook() {
+		System.out.println("Enter the Bookname : ");
+		String bname = ab.next();
+
+		System.out.println("Enter the BookID : ");
+		int bid = ab.nextInt();
+
+		System.out.println("Enter the Author : ");
+		String bauthor = ab.next();
+
+		System.out.println("Enter the Book Cost : ");
+		int bcost = ab.nextInt();
+
+		System.out.println("Enter the Book Copies : ");
+		int bcopies = ab.nextInt();
+
+		Book b = new Book(bname, bid, bauthor, bcost, bcopies);
+		return b;
+		
+	}
+
+}

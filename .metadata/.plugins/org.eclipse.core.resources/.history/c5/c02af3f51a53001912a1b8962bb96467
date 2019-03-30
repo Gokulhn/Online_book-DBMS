@@ -1,0 +1,102 @@
+package onlineBook;
+
+import java.util.Scanner;
+
+public class OnlineMain {
+public static void main(String[] args) {
+	Scanner sc = new Scanner(System.in);
+	DbOperations db =new DbOperations();
+	System.out.println("----------------------------------");
+	System.out.println("Welcome To Online Book Store");
+	System.out.println("----------------------------------");
+	System.out.println("1. Manager");
+	System.out.println("2. Buyer");
+	System.out.println("Please Select your choice  :");
+	System.out.println("----------------------------------");
+	int choice = sc.nextInt();
+	switch (choice) {
+	case 1:
+		System.out.println("Please enter Username :");
+		String uname = sc.next();
+		System.out.println("Please enter Password :");
+		String pass = sc.next();
+		boolean check = db.validateAdmin(uname, pass);
+		if (check) {
+			while (true) {
+				System.out.println("----------------------------------");
+				System.out.println("1. Add Book");
+				System.out.println("2. View all books");
+				System.out.println("3. Delete book");
+				System.out.println("4. View all buying");
+				System.out.println("5. Logout");
+				System.out.println("----------------------------------");
+				System.out.println("Enter Your choice :");
+				int adminChoice = sc.nextInt();
+				ManagerOperations mo= new ManagerOperations();
+				switch (adminChoice) {
+				case 1:
+					Book bk= mo.addBook();
+					String bname=db.addBook(bk);
+					System.out.println("Book Added :"+bname);
+					db.close();
+					break;
+				case 2:
+					mo.displayBook();
+					db.close();
+					break;
+				case 3:// add question and answer
+					dbc.updateQuestion();
+					dbc.releaseResources();
+					break;
+				case 4:// generate report
+					ArrayList<Member> memberList = dbc.generateReport();
+					if (memberList != null) {
+						Iterator<Member> memberItr = memberList.iterator();
+						while (memberItr.hasNext()) {
+							System.out.println(memberItr.next());
+						}
+					} else {
+						System.out.println("No such data");
+					}
+					break;
+				case 5:// exit
+					System.exit(0);
+				default:
+					System.out.println("Enter valid choice!!");
+				}
+			}
+		} else {
+			System.out.println("You are not the Admin!!!");
+		}
+		break;
+	case 2:// user
+		int userChoice = 0;
+		do {
+			System.out.println("1.Question Paper\n2.Take test\n3.exit");
+			System.out.println("Enter your choice:");
+			userChoice = sc.nextInt();
+			switch (userChoice) {
+			case 1:// question paper
+				dbc.getQuestionPaper();
+				dbc.releaseResources();
+				break;
+			case 2:// take test
+				dbc.answer();
+				dbc.releaseResources();
+				break;
+			case 3:// exit
+				System.exit(0);
+				break;
+			default:
+				System.out.println("Entered choice is invalid!!!");
+			}
+		} while (userChoice != 3);
+		break;
+	default:
+		System.out.println("Invalid Option!!");
+	}
+	sc.close();
+
+}
+}
+

@@ -1,0 +1,11 @@
+package onlineBook;
+
+public class ManagerOperations {
+
+	public void addBook() {
+		
+	}
+
+	
+
+}

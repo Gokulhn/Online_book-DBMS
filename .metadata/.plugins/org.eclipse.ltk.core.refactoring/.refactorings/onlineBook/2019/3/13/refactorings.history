@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename field &apos;sc&apos; in &apos;onlineBook.ManagerOperations&apos; to &apos;ab&apos;&#x0D;&#x0A;- Original project: &apos;onlineBook&apos;&#x0D;&#x0A;- Original element: &apos;onlineBook.ManagerOperations.sc&apos;&#x0D;&#x0A;- Renamed element: &apos;onlineBook.ManagerOperations.ab&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" delegate="false" deprecate="false" description="Rename field &apos;sc&apos;" flags="589830" getter="false" id="org.eclipse.jdt.ui.rename.field" input="/src&lt;onlineBook{ManagerOperations.java[ManagerOperations^sc" name="ab" references="true" setter="false" stamp="1553967752339" textual="false" version="1.0"/>
+</session>
