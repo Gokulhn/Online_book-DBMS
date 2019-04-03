@@ -9,6 +9,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import UserOperations.buyer;
+
 public class DbOperations implements DbInterface {
 	Connection con = null;
 	PreparedStatement pst = null;
@@ -78,7 +80,7 @@ public class DbOperations implements DbInterface {
 	}
 
 	@Override
-	public String deleteBookDb(Book b) {
+	public int deleteBookDb(Book b) {
 		String del = "delete from Book where bookid = ?";
 		try {
 			con = getConnection();
@@ -94,17 +96,17 @@ public class DbOperations implements DbInterface {
 			System.out.println(e.getMessage());
 
 		}
-		return b.getBookname();
+		return b.getBookid();
 	}
 
 	@Override
-	public boolean validateAdmin(String uname, String pass) {
+	public boolean validateAdmin(String uname) {
 		con = getConnection();
 		String sql = "select * from login where username=? and password=?";
 		try {
 			pst = con.prepareStatement(sql);
 			pst.setString(1, uname);
-			pst.setString(2, pass);
+			pst.setString(2, "adi12");
 			rs = pst.executeQuery();
 			while (rs.next()) {
 				return true;
@@ -121,7 +123,7 @@ public class DbOperations implements DbInterface {
 			try {
 				con.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				e.getMessage();
 			}
 		}
 		if (pst != null) {
@@ -145,6 +147,169 @@ public class DbOperations implements DbInterface {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	@Override
+	public boolean displayBooksingle(String bname) {
+		String bk = bname;
+		List<Book> list = displaySingleDB(bk);
+		if (!list.isEmpty()) {
+			System.out.println("------------------------------------");
+			System.out.println("Displaying the books from database :");
+			System.out.println("------------------------------------");
+			for (Book l : list) {
+				System.out.println("Book name             	:" + l.getBookname());
+				System.out.println("Book Id               	:" + l.getBookid());
+				System.out.println("Book Cost             	:" + l.getBookcost());
+				System.out.println("Book Copies Available 	:" + l.getCopies());
+				System.out.println("Book Author Name	:" + l.getAuthor());
+				System.out.println("Book Cost		:" + l.getBookcost());
+				System.out.println("------------------------------------");
+			}
+		} else {
+			System.out.println("No Books available available!!!!!!!");
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public boolean addBuyer(buyer b) {
+		Connection con = null;
+		PreparedStatement pst = null;
+		try {
+			con = getConnection();
+			String sql1 = "insert into buyer (name,mob,mail,bname,copy,pay) values(?,?,?,?,?,?)";
+			pst = con.prepareStatement(sql1);
+			pst.setString(1, b.getName());
+			pst.setString(2, b.getMob());
+			pst.setString(3, b.getMail());
+			pst.setString(4, b.getBname());
+			pst.setInt(5, b.getCopy());
+			pst.setString(6, b.getPay());
+			int isExecuted = pst.executeUpdate();
+			if (isExecuted != 0) {
+				System.out.println("Adding buyer to database ");
+				return true;
+			} else {
+				System.out.println("Adding buyer failed!!");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public List<buyer> Buyer() {
+		buyer by = null;
+		List<buyer> buy = new ArrayList<buyer>();
+		try {
+			con = getConnection();
+			smt = con.createStatement();
+			String sql = "Select * from buyer";
+			rs = smt.executeQuery(sql);
+			while (rs.next()) {
+				by = new buyer();
+				by.setName(rs.getString(1));
+				by.setMob(rs.getString(2));
+				by.setMail(rs.getString(3));
+				by.setBname(rs.getString(4));
+				by.setCopy(rs.getInt(5));
+				by.setPay(rs.getString(6));
+				buy.add(by);
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return buy;
+	}
+
+	@Override
+	public void displayBuyer() {
+		List<buyer> list = Buyer();
+		if (!list.isEmpty()) {
+			System.out.println("------------------------------------");
+			System.out.println("Displaying the buyer from database :");
+			System.out.println("------------------------------------");
+			for (buyer l : list) {
+				System.out.println("Buyer Name             	:" + l.getName());
+				System.out.println("Buyer mobile number     :" + l.getMob());
+				System.out.println("Buyer MailID            :" + l.getMail());
+				System.out.println("Bought book name 	:" + l.getBname());
+				System.out.println("Number of copies	:" + l.getCopy());
+				System.out.println("Payment method		:" + l.getPay());
+				System.out.println("---------------------------------");
+			}
+		} else {
+			System.out.println("No Buyers available available!!!!!!!");
+		}
+	}
+
+	@Override
+	public List<Book> displaySingleDB(String bname) {
+		Book b = null;
+		List<Book> list = new ArrayList<Book>();
+		try {
+			con = getConnection();
+			String sql = "Select * from Book where bookname=?";
+			pst = con.prepareStatement(sql);
+			pst.setString(1, bname);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				b = new Book();
+				b.setBookname(rs.getString(1));
+				b.setBookid(rs.getInt(2));
+				b.setAuthor(rs.getString(3));
+				b.setBookcost(rs.getInt(4));
+				b.setCopies(rs.getInt(5));
+				list.add(b);
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return list;
+	}
+
+	public boolean displayCopies(String bname) {
+		String bc = bname;
+		List<Book> cop = displayCopiesDB(bc);
+		if (!cop.isEmpty()) {
+			System.out.println("------------------------------------");
+			System.out.println("Displaying the book copies :");
+			System.out.println("------------------------------------");
+			for (Book l : cop) {
+				System.out.println("Book name             	:" + l.getBookname());
+				System.out.println("Book Copies             :" + l.getCopies());
+				System.out.println("------------------------------------");
+				System.out.println("Please Enter the copies :");
+			}
+		} else {
+			System.out.println("No Books available available!!!!!!!");
+			return false;
+		}
+		return true;
+	}
+
+	private List<Book> displayCopiesDB(String bc) {
+		Book b = null;
+		List<Book> list = new ArrayList<Book>();
+		try {
+			con = getConnection();
+			String sql = "Select bookname,copies from Book where bookname=?";
+			pst = con.prepareStatement(sql);
+			pst.setString(1, bc);
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				b = new Book();
+				b.setBookname(rs.getString(1));
+				b.setCopies(rs.getInt(2));
+				list.add(b);
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		return list;
 	}
 
 }

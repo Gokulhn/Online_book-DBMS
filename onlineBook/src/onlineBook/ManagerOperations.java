@@ -16,7 +16,7 @@ public class ManagerOperations implements OnlineBookInterface {
 		bname = ab.next();
 		while (!bname.matches("[a-zA-Z]+")) {
 			System.out.println("Please Enter the valid Book name :");
-			bname = ab.next();
+			bname = ab.next().toLowerCase();
 		}
 
 		int bid = 0;
@@ -73,10 +73,17 @@ public class ManagerOperations implements OnlineBookInterface {
 	@Override
 	public void displayBook() {
 		List<Book> list = db.displayBook();
-		if (list != null) {
-			Iterator<Book> itr = list.iterator();
-			while (itr.hasNext()) {
-				System.out.println(itr.next());
+		if (!list.isEmpty()) {
+			System.out.println("------------------------------------");
+			System.out.println("Displaying the books from database :");
+			System.out.println("------------------------------------");
+			for (Book l : list) {
+				System.out.println("Book name             	:" + l.getBookname());
+				System.out.println("Book Id               	:" + l.getBookid());
+				System.out.println("Book Cost             	:" + l.getBookcost());
+				System.out.println("Book Copies Available 	:" + l.getCopies());
+				System.out.println("Book Author Name	:" + l.getAuthor());
+				System.out.println("Book Cost		:" + l.getBookcost());
 			}
 		} else {
 			System.out.println("No Books available available!!!!!!!");
@@ -95,13 +102,11 @@ public class ManagerOperations implements OnlineBookInterface {
 				System.out.println("Enter the Book id to delete :");
 				bid = ab.nextInt();
 				break;
-
 			} catch (InputMismatchException e) {
 				ab.next();
 				System.out.println("Entered data is invalid!!!! Please re-enter the field");
 			}
 		}
-
 		Book bk = new Book("", bid, "", 0, 0);
 		return bk;
 

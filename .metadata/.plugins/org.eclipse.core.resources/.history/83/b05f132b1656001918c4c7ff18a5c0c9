@@ -1,0 +1,69 @@
+package UserOperations;
+
+public class buyer {
+	private String name;
+	private String mob;
+	private String mail;
+	private String bname;
+	private int copy;
+	private String pay;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getMob() {
+		return mob;
+	}
+
+	public void setMob(String mob) {
+		this.mob = mob;
+	}
+
+	public String getMail() {
+		return mail;
+	}
+
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+
+	public String getBname() {
+		return bname;
+	}
+
+	public void setBname(String bname) {
+		this.bname = bname;
+	}
+
+	public int getCopy() {
+		return copy;
+	}
+
+	public void setCopy(int copy) {
+		this.copy = copy;
+	}
+
+	public String getPay() {
+		return pay;
+	}
+
+	public void setPay(String pay) {
+		this.pay = pay;
+	}
+
+	public buyer(String name, String mob, String mail, String bname, int copy, String pay) {
+		super();
+		this.name = name;
+		this.mob = mob;
+		this.mail = mail;
+		this.bname = bname;
+		this.copy = copy;
+		this.pay = pay;
+	}
+
+}

@@ -1,0 +1,120 @@
+package onlineBook;
+
+import java.util.InputMismatchException;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Scanner;
+
+public class ManagerOperations implements OnlineBookInterface {
+	DbOperations db = new DbOperations();
+	Scanner ab = new Scanner(System.in);
+
+	@Override
+	public Book addBook() {
+		String bname = null;
+		System.out.println("Enter the Bookname : ");
+		bname = ab.next();
+		while (!bname.matches("[a-zA-Z]+")) {
+			System.out.println("Please Enter the valid Book name :");
+			bname = ab.next();
+		}
+
+		int bid = 0;
+		while (true) {
+			try {
+				System.out.println("Enter the BookID : ");
+				bid = ab.nextInt();
+				break;
+
+			} catch (InputMismatchException e) {
+				ab.next();
+				System.out.println("Entered data is invalid!!!! Please re-enter the field");
+			}
+		}
+
+		String bauthor = null;
+		System.out.println("Enter the author name : ");
+		bauthor = ab.next();
+		while (!bauthor.matches("[a-zA-Z]+")) {
+			System.out.println("Please Enter the valid Book author name :");
+			bauthor = ab.next();
+		}
+
+		int bcost = 0;
+		while (true) {
+			try {
+				System.out.println("Enter the Book Cost : ");
+				bcost = ab.nextInt();
+				break;
+
+			} catch (InputMismatchException e) {
+				ab.next();
+				System.out.println("Entered data is invalid!!!! Please re-enter the field");
+			}
+		}
+
+		int bcopies = 0;
+		while (true) {
+			try {
+				System.out.println("Enter the Book Copies : ");
+				bcopies = ab.nextInt();
+				break;
+
+			} catch (InputMismatchException e) {
+				ab.next();
+				System.out.println("Entered data is invalid!!!! Please re-enter the field");
+			}
+		}
+
+		Book b = new Book(bname, bid, bauthor, bcost, bcopies);
+		return b;
+	}
+
+	@Override
+	public void displayBook() {
+		List<Book> list = db.displayBook();
+		System.out.println("Displaying the books from database :");
+		System.out.println("------------------------------------");
+		if (list != null) {
+			/*
+			 * Iterator<Book> itr = list.iterator(); while (itr.hasNext()) {
+			 * System.out.println(itr.next()); }
+			 */
+			for (Book l : list) {
+				System.out.println("Book name             :" + l.getBookname());
+				System.out.println("Book Id               :" + l.getBookid());
+				System.out.println("Book Cost             :" + l.getBookcost());
+				System.out.println("Book Author Name   :" + l.getAuthor());
+				System.out.println("Book Cost        :" + l.getBookcost());
+				System.out.println("Book Copies Available :" + l.getCopies());
+				System.out.println("---------------------------------");
+			}
+		} else {
+			System.out.println("No Books available available!!!!!!!");
+
+		}
+	}
+
+	@Override
+	public Book deleteBook() {
+		System.out.println("-------------------");
+		System.out.println("Deleting Book!!!!");
+		System.out.println("-------------------");
+		int bid = 0;
+		while (true) {
+			try {
+				System.out.println("Enter the Book id to delete :");
+				bid = ab.nextInt();
+				break;
+			} catch (InputMismatchException e) {
+				ab.next();
+				System.out.println("Entered data is invalid!!!! Please re-enter the field");
+			}
+		}
+
+		Book bk = new Book("", bid, "", 0, 0);
+		return bk;
+
+	}
+
+}

@@ -3,6 +3,8 @@ package onlineBook;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import UserOperations.UserOperation;
+
 public class OnlineMain {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -11,6 +13,7 @@ public class OnlineMain {
 		System.out.println("----------------------------------");
 		System.out.println("1. Manager");
 		System.out.println("2. Buyer");
+		System.out.println("3. Exit");
 		System.out.println("----------------------------------");
 
 		int choice = 0;
@@ -35,11 +38,8 @@ public class OnlineMain {
 				System.out.println("Please Enter the valid Username :");
 				uname = sc.next();
 			}
-			System.out.println("********--------********");
-			System.out.println("Please enter Password :");
-			String pass = sc.next();
 			System.out.println("---------------------------");
-			boolean check = db.validateAdmin(uname, pass);
+			boolean check = db.validateAdmin(uname);
 
 			if (check) {
 				while (true) {
@@ -77,13 +77,13 @@ public class OnlineMain {
 
 					case 3:
 						Book b = mo.deleteBook();
-						String name = db.deleteBookDb(b);
-						System.out.println("Book deleted :" + name);
+						int id = db.deleteBookDb(b);
+						System.out.println("Book deleted :" + id);
 						db.close();
 						break;
 
 					case 4:
-
+						db.displayBuyer();
 						break;
 
 					case 5:
@@ -98,11 +98,13 @@ public class OnlineMain {
 			} else {
 				System.out.println("You are not the Manager!!!");
 				System.out.println("Please login again");
+				main(args);
 			}
 			break;
-		case 2:// user
+		case 2:
 			int userChoice = 0;
 			do {
+				System.out.println("------------------");
 				System.out.println("1. View all books" + "\n" + "2. Buy book" + "\n" + "3. Logout" + "\n"
 						+ "-------------------------");
 				userChoice = 0;
@@ -118,14 +120,18 @@ public class OnlineMain {
 					}
 				}
 
+				UserOperation uo = new UserOperation();
 				switch (userChoice) {
 				case 1:
-
+					uo.displayBook();
 					break;
+
 				case 2:
+					uo.BuyBook();
 
 					break;
 				case 3:
+					System.out.println("----------THANK YOU----------");
 					main(args);
 					break;
 
@@ -134,6 +140,12 @@ public class OnlineMain {
 				}
 			} while (userChoice != 3);
 			break;
+
+		case 3:
+			System.out.println("----------THANK YOU----------");
+			System.exit(0);
+			break;
+
 		default:
 			System.out.println("Invalid Option!!");
 		}
