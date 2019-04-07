@@ -312,32 +312,4 @@ public class DbOperations implements DbInterface {
 		return list;
 	}
 
-	public boolean updateBook(Book book) {
-		
-		Connection con = null;
-		PreparedStatement pst=null;
-		con =getConnection();
-		String update="Update book set bookname =?,Author=?,bookcost=?,copies=? where bookid=?";
-		try {
-			pst=con.prepareStatement(update);
-			pst.setString(1, book.getBookname());
-			pst.setString(2, book.getAuthor());
-			pst.setInt(3, book.getBookcost());
-			pst.setInt(4, book.getCopies());
-			pst.setInt(5, book.getBookid());
-			int i=pst.executeUpdate();
-			if(i==1) {
-				System.out.println("Updating the book.......");
-				return true;
-			}
-			else {
-				System.out.println("Updating book failed..........");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return false;
-		
-	}
-
 }

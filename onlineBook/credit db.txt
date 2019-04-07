@@ -1,0 +1,6 @@
+create database credit;
+use credit;
+create table user_login (uname varchar(20) primary key,upass varchar(20) unique);
+create table user_signup (uname varchar(30), mobnum varchar(20) unique, mailid varchar(30) unique, pass varchar(15) unique);
+create table manager (mname varchar(20),mpass varchar(20));
+create table application (fname varchar(20),lname varchar(20), cardname varchar(20) ,mname varchar(20),father varchar(20),spouse varchar(20),dob varchar(20),gender varchar(10),marital varchar(15),nation varchar(20),education varchar(20),pan varchar(20), addar varchar(20),address varchar (150), mob varchar (15), mail varchar(25));

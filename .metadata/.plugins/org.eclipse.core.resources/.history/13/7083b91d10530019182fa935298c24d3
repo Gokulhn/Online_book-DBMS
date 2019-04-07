@@ -1,9 +1,0 @@
-package onlineBook;
-
-public class Book {
-	String bookname;
-	int bookid;
-	String author;
-	int bookcost;
-	int copies;
-}

@@ -1,5 +1,0 @@
-package onlineBook;
-
-public interface DbInterface {
-
-}

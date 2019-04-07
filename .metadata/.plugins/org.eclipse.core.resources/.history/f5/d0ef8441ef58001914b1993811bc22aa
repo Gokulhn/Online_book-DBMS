@@ -83,6 +83,7 @@ public class ManagerOperations implements OnlineBookInterface {
 				System.out.println("Book Cost             	:" + l.getBookcost());
 				System.out.println("Book Copies Available 	:" + l.getCopies());
 				System.out.println("Book Author Name	:" + l.getAuthor());
+				System.out.println("Book Cost		:" + l.getBookcost());
 			}
 		} else {
 			System.out.println("No Books available available!!!!!!!");
@@ -109,34 +110,6 @@ public class ManagerOperations implements OnlineBookInterface {
 		Book bk = new Book("", bid, "", 0, 0);
 		return bk;
 
-	}
-
-	@Override
-	public Book updateBook() {
-		System.out.println("Updating the book details");
-		System.out.println("-------------------------");
-		int bkid= 0;
-		while (true) {
-			try {
-				System.out.println("Enter the Book id to delete :");
-				bkid = ab.nextInt();
-				break;
-			} catch (InputMismatchException e) {
-				ab.next();
-				System.out.println("Entered data is invalid!!!! Please re-enter the field");
-			}
-		}
-		System.out.println("Enter the Book name :");
-		String bkname=ab.next();
-		System.out.println("Enter the book cost :");
-		int cost=ab.nextInt();
-		System.out.println("Enter the author name :");
-		String aname=ab.next();
-		System.out.println("Enter the number of copies :");
-		int copy=ab.nextInt();
-		
-		Book bk=new Book( bkname,bkid, aname,cost,copy);
-		return bk;
 	}
 
 }

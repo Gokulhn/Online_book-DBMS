@@ -28,5 +28,4 @@ public interface DbInterface {
 
 	public List<buyer> Buyer();
 
-	
 }

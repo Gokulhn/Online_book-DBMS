@@ -38,15 +38,16 @@ public class OnlineMain {
 				System.out.println("Please Enter the valid Username :");
 				uname = sc.next();
 			}
+			System.out.println("Enter your password :");
+			String pass=sc.next();
 			System.out.println("---------------------------");
-			boolean check = db.validateAdmin(uname);
+			boolean check = db.validateAdmin(uname,pass);
 
 			if (check) {
 				while (true) {
 					System.out.println("----------------------------------");
 					System.out.println("1. Add Book" + "\n" + "2. View all books" + "\n" + "3. Delete Book" + "\n"
-							+ "4. View all buying" + "\n" + "5. Update Book" + "\n" + "6. Logout" + "\n"
-							+ "-------------------------");
+							+ "4. View all buying" + "\n" + "5. Logout" + "\n" + "-------------------------");
 
 					int adminChoice = 0;
 					while (true) {
@@ -88,16 +89,6 @@ public class OnlineMain {
 						break;
 
 					case 5:
-						Book book = mo.updateBook();
-						boolean status = db.updateBook(book);
-						if (status) {
-							System.out.println("Book updated successfully.....");
-						} else {
-							System.out.println("Updating failed.......");
-						}
-						break;
-
-					case 6:
 						System.out.println("Logging out!!!!!!!!!");
 						main(args);
 						break;

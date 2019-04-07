@@ -136,7 +136,9 @@ public class ManagerOperations implements OnlineBookInterface {
 		int copy=ab.nextInt();
 		
 		Book bk=new Book( bkname,bkid, aname,cost,copy);
-		return bk;
+		
+		
+		return null;
 	}
 
 }

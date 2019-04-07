@@ -7,6 +7,6 @@ public interface OnlineBookInterface {
 
 	public Book deleteBook();
 	
-	public Book updateBook();
+	public boolean  updateBook();
 	
 }
