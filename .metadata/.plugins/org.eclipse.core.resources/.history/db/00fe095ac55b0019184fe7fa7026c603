@@ -190,10 +190,10 @@ public class DbOperations implements DbInterface {
 			pst.setString(6, b.getPay());
 			int isExecuted = pst.executeUpdate();
 			if (isExecuted != 0) {
+				System.out.println("Adding buyer to database ");
 				int copy = b.getCopy();
 				String bname = b.getBname();
 				if (db.updateCount(copy, bname)) {
-					System.out.println("Adding buyer to database ");
 					return true;
 				}
 			} else {

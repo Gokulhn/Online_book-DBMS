@@ -58,7 +58,8 @@ public class UserOperation implements UserInterface {
 			System.out.println("Please Enter the valid book name :");
 			bname = ab.next();
 		}
-
+		
+		
 		if (db.displayBooksingle(bname)) {
 			System.out.println("Enter the number of copies for buying :");
 			if (db.displayCopies(bname)) {
@@ -72,6 +73,7 @@ public class UserOperation implements UserInterface {
 				boolean status = db.addBuyer(by);
 				if (status) {
 					System.out.println("Buying book successfully");
+					db.updateCount(copy,bname);
 					return true;
 				} else {
 					System.out.println("Buying book not successfully");

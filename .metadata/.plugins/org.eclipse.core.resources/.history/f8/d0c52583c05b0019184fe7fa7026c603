@@ -48,17 +48,17 @@ public class UserOperation implements UserInterface {
 			mob = ab.next();
 		}
 
+		String mail = null;
 		System.out.println("Enter your mail ID:");
-		String mail = ab.next();
+		mail = ab.next();
+		while (!mail.matches("/^[a-z0-9.]+\\@[a-z0-9.-]+$/")) {
+			System.out.println("Please Enter the valid mail ID :");
+			mob = ab.next();
+		}
 
 		System.out.println("--------------------------");
 		System.out.println("Enter the book name :");
 		String bname = ab.next();
-		while (!bname.matches("[a-zA-Z]+")) {
-			System.out.println("Please Enter the valid book name :");
-			bname = ab.next();
-		}
-
 		if (db.displayBooksingle(bname)) {
 			System.out.println("Enter the number of copies for buying :");
 			if (db.displayCopies(bname)) {

@@ -83,7 +83,6 @@ public class ManagerOperations implements OnlineBookInterface {
 				System.out.println("Book Cost             	:" + l.getBookcost());
 				System.out.println("Book Copies Available 	:" + l.getCopies());
 				System.out.println("Book Author Name	:" + l.getAuthor());
-				System.out.println("-----------------------------------");
 			}
 		} else {
 			System.out.println("No Books available available!!!!!!!");

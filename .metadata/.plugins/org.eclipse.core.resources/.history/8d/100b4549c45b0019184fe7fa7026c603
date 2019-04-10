@@ -175,7 +175,6 @@ public class DbOperations implements DbInterface {
 
 	@Override
 	public boolean addBuyer(buyer b) {
-		DbOperations db = new DbOperations();
 		Connection con = null;
 		PreparedStatement pst = null;
 		try {
@@ -190,12 +189,8 @@ public class DbOperations implements DbInterface {
 			pst.setString(6, b.getPay());
 			int isExecuted = pst.executeUpdate();
 			if (isExecuted != 0) {
-				int copy = b.getCopy();
-				String bname = b.getBname();
-				if (db.updateCount(copy, bname)) {
-					System.out.println("Adding buyer to database ");
-					return true;
-				}
+				System.out.println("Adding buyer to database ");
+				return true;
 			} else {
 				System.out.println("Adding buyer failed!!");
 			}
@@ -318,82 +313,31 @@ public class DbOperations implements DbInterface {
 	}
 
 	public boolean updateBook(Book book) {
-
+		
 		Connection con = null;
-		PreparedStatement pst = null;
-		con = getConnection();
-		String update = "Update book set bookname =?,Author=?,bookcost=?,copies=? where bookid=?";
+		PreparedStatement pst=null;
+		con =getConnection();
+		String update="Update book set bookname =?,Author=?,bookcost=?,copies=? where bookid=?";
 		try {
-			pst = con.prepareStatement(update);
+			pst=con.prepareStatement(update);
 			pst.setString(1, book.getBookname());
 			pst.setString(2, book.getAuthor());
 			pst.setInt(3, book.getBookcost());
 			pst.setInt(4, book.getCopies());
 			pst.setInt(5, book.getBookid());
-			int i = pst.executeUpdate();
-			if (i == 1) {
+			int i=pst.executeUpdate();
+			if(i==1) {
 				System.out.println("Updating the book.......");
 				return true;
-			} else {
+			}
+			else {
 				System.out.println("Updating book failed..........");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return false;
-	}
-
-	private Book displayCopy(String bc) {
-		Book b = null;
-		try {
-			con = getConnection();
-			String sql = "Select copies from Book where bookname=?";
-			pst = con.prepareStatement(sql);
-			pst.setString(1, bc);
-			rs = pst.executeQuery();
-			while (rs.next()) {
-				b = new Book();
-				b.setCopies(rs.getInt(1));
-			}
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		}
-		return b;
-	}
-
-	public boolean updateCount(int copy, String bname) {
-		DbOperations db = new DbOperations();
-		Book cop = db.displayCopy(bname);
-		int DbCopy = cop.getCopies();
-
-		int origCopy = copy;
-		int newCopy = DbCopy - origCopy;
-		if (newCopy > 0) {
-			db.updateCopy(newCopy, bname);
-			return true;
-		}
-		return false;
-	}
-
-	private void updateCopy(int newCopy, String bname) {
-		Connection con = null;
-		PreparedStatement pst = null;
-		con = getConnection();
-		String update = "update book set copies = ? where bookname=?";
-		try {
-			pst = con.prepareStatement(update);
-			pst.setInt(1, newCopy);
-			pst.setString(2, bname);
-			int i = pst.executeUpdate();
-			if (i == 1) {
-				System.out.println("updated the copies successfull....");
-			} else {
-				System.out.println("updating count failed....");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
+		
 	}
 
 }

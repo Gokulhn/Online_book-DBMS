@@ -175,7 +175,6 @@ public class DbOperations implements DbInterface {
 
 	@Override
 	public boolean addBuyer(buyer b) {
-		DbOperations db = new DbOperations();
 		Connection con = null;
 		PreparedStatement pst = null;
 		try {
@@ -190,12 +189,8 @@ public class DbOperations implements DbInterface {
 			pst.setString(6, b.getPay());
 			int isExecuted = pst.executeUpdate();
 			if (isExecuted != 0) {
-				int copy = b.getCopy();
-				String bname = b.getBname();
-				if (db.updateCount(copy, bname)) {
-					System.out.println("Adding buyer to database ");
-					return true;
-				}
+				System.out.println("Adding buyer to database ");
+				return true;
 			} else {
 				System.out.println("Adding buyer failed!!");
 			}

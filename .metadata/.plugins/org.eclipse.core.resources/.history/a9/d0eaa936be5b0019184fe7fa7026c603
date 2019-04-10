@@ -37,7 +37,7 @@ public class UserOperation implements UserInterface {
 		System.out.println("Enter your name");
 		name = ab.next();
 		while (!name.matches("[a-zA-Z]+")) {
-			System.out.println("Please Enter the valid name :");
+			System.out.println("Please Enter the valid Book name :");
 			name = ab.next();
 		}
 		String mob = null;
@@ -50,15 +50,9 @@ public class UserOperation implements UserInterface {
 
 		System.out.println("Enter your mail ID:");
 		String mail = ab.next();
-
 		System.out.println("--------------------------");
 		System.out.println("Enter the book name :");
 		String bname = ab.next();
-		while (!bname.matches("[a-zA-Z]+")) {
-			System.out.println("Please Enter the valid book name :");
-			bname = ab.next();
-		}
-
 		if (db.displayBooksingle(bname)) {
 			System.out.println("Enter the number of copies for buying :");
 			if (db.displayCopies(bname)) {

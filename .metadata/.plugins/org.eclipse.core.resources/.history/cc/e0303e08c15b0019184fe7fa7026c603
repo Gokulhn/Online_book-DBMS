@@ -58,7 +58,8 @@ public class UserOperation implements UserInterface {
 			System.out.println("Please Enter the valid book name :");
 			bname = ab.next();
 		}
-
+		
+		
 		if (db.displayBooksingle(bname)) {
 			System.out.println("Enter the number of copies for buying :");
 			if (db.displayCopies(bname)) {

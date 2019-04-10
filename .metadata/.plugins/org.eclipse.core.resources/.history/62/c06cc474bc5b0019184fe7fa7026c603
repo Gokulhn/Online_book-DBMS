@@ -33,32 +33,15 @@ public class UserOperation implements UserInterface {
 	}
 
 	public boolean BuyBook() {
-		String name = null;
 		System.out.println("Enter your name");
-		name = ab.next();
-		while (!name.matches("[a-zA-Z]+")) {
-			System.out.println("Please Enter the valid name :");
-			name = ab.next();
-		}
-		String mob = null;
+		String name = ab.next();
 		System.out.println("Enter your mobile number :");
-		mob = ab.next();
-		while (!mob.matches("[0-9]{10}")) {
-			System.out.println("Please Enter the valid Contact number :");
-			mob = ab.next();
-		}
-
+		String mob = ab.next();
 		System.out.println("Enter your mail ID:");
 		String mail = ab.next();
-
 		System.out.println("--------------------------");
 		System.out.println("Enter the book name :");
 		String bname = ab.next();
-		while (!bname.matches("[a-zA-Z]+")) {
-			System.out.println("Please Enter the valid book name :");
-			bname = ab.next();
-		}
-
 		if (db.displayBooksingle(bname)) {
 			System.out.println("Enter the number of copies for buying :");
 			if (db.displayCopies(bname)) {
